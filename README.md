@@ -35,3 +35,10 @@ occurrence is reported; nothing about position is part of the contract.
 If you need an index, wrap the values in `(value, index)` pairs before
 building the table and let tuple ordering break ties, or use a
 different data structure.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
